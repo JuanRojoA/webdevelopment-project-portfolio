@@ -9,14 +9,14 @@ html {
 }
 
 body {
-  background-color: rgb(204, 209, 255);
+  background-color: rgb(204, 230, 255);
   font-size: 16px;
   font-weight: 400;
   font-family: "Outfit", sans-serif;
 }
 
 header {
-  height: 50vh;
+  height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -140,7 +140,7 @@ a {
 }
 
 .project-container__link {
-  width: 12rem;
+  width: 13rem;
   height: 4rem;
   display: flex;
   justify-content: center;
@@ -185,6 +185,9 @@ footer {
 }
 
 @media screen and (min-width: 600px) {
+  header {
+    height: 50vh;
+  }
   .project-container {
     grid-column: span 6;
   }

@@ -1,10 +1,11 @@
-let titleElement = document.getElementById("title");
+let titleElement = document.getElementById("header-title");
+let mainpageBtnElement = document.getElementById("mainpage-link");
+let esLangBtnSelector = document.getElementById("lang-es");
+let enLangBtnSelector = document.getElementById("lang-en");
 let projectContainerElementOne = document.getElementById("section-container-one");
 let projectContainerElementTwo = document.getElementById("section-container-two");
 let projectContainerElementThree = document.getElementById("section-container-three");
 let projectContainerElementFour = document.getElementById("section-container-four");
-let esLangBtnSelector = document.getElementById("lang-es");
-let enLangBtnSelector = document.getElementById("lang-en");
 let enJsonData = [];
 let esJsonData = [];
 
@@ -16,26 +17,28 @@ async function readJSON() {
   response = await fetch("./js/esData.json");
   esJsonData = await response.json();
   if (navigator.language.includes("en") || !navigator.language.includes("es")) {
-    await addProject(enJsonData);
+    await renderProjectsPage(enJsonData);
     enLangBtnSelector.classList.add("active");
   } else if (navigator.language.includes("es")) {
-    await addProject(esJsonData);
+    await renderProjectsPage(esJsonData);
     esLangBtnSelector.classList.add("active");
   }
 }
 
-function addProject(arrayData) {
+function renderProjectsPage(arrayData) {
   projectContainerElementOne.innerHTML = ""
   projectContainerElementTwo.innerHTML = ""
   projectContainerElementThree.innerHTML = ""
   projectContainerElementFour.innerHTML = ""
+  titleElement.innerText = arrayData.pageTitle
+  mainpageBtnElement.innerText = arrayData.mainButtonText
   for (i = 0; i < arrayData.projects.length; i++) {
     let projectItem = ` 
     <div class="project-container">
       <img src="${arrayData.projects[i].image}" alt="${arrayData.projects[i].altImage}" class="project-container__img"/>
       <h3 class="project-container__title">${arrayData.projects[i].title}</h3>
       <p class="project-container__description">${arrayData.projects[i].description}</p>
-      <a href="${arrayData.projects[i].link}" target="_blank" class="project-container__link">See Project</a>
+      <a href="${arrayData.projects[i].link}" target="_blank" class="project-container__link">${arrayData.projectsButton}</a>
       <span class="project-container__date">${arrayData.projects[i].date}</span>
     </div>`;
     if (arrayData.projects[i].projectType === 1) {
@@ -56,7 +59,7 @@ esLangBtnSelector.addEventListener("click", (e) => {
   if (enLangBtnSelector.classList.contains("active")) {
     enLangBtnSelector.classList.remove("active");
   }
-  addProject(esJsonData);
+  renderProjectsPage(esJsonData);
 });
 
 enLangBtnSelector.addEventListener("click", (e) => {
@@ -65,7 +68,7 @@ enLangBtnSelector.addEventListener("click", (e) => {
   if (esLangBtnSelector.classList.contains("active")) {
     esLangBtnSelector.classList.remove("active");
   }
-  addProject(enJsonData);
+  renderProjectsPage(enJsonData);
 });
 
 readJSON();

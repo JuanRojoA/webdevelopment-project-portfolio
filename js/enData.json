@@ -1,4 +1,7 @@
 {
+  "pageTitle": "Juan Rojo's Projects",
+  "mainButtonText": "Back To Main Page",
+  "projectsButton": "See Project",
   "projects": [
     {
       "projectType": 1,
