@@ -1,106 +1,71 @@
 let titleElement = document.getElementById("title");
-let projectContainerElementOne = document.getElementById(
-  "section-container-one"
-);
-let projectContainerElementTwo = document.getElementById(
-  "section-container-two"
-);
-let projectContainerElementThree = document.getElementById(
-  "section-container-three"
-);
-let projectContainerElementFour = document.getElementById(
-  "section-container-four"
-);
-let jsonData = [
-  {
-    projectType: 1,
-    image: "https://picsum.photos/300/200",
-    altImage: "Image representing the project",
-    title: "Project Title",
-    description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius officia vel distinctio ducimus in amet sequi, modi minus neque, vitae facilis! Dolore sint accusantium esse voluptate iste. Quam, vel veritatis.",
-    link: "https://github.com/JuanRojoA",
-    date: "12 sep 2021",
-  },
-  {
-    projectType: 1,
-    image: "https://picsum.photos/300/200",
-    altImage: "Image representing the project",
-    title: "Project Title",
-    description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius officia vel distinctio ducimus in amet sequi, modi minus neque, vitae facilis! Dolore sint accusantium esse voluptate iste. Quam, vel veritatis.",
-    link: "https://github.com/JuanRojoA",
-    date: "12 sep 2021",
-  },
-  {
-    projectType: 2,
-    image: "https://picsum.photos/300/200",
-    altImage: "Image representing the project",
-    title: "Project Title",
-    description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius officia vel distinctio ducimus in amet sequi, modi minus neque, vitae facilis! Dolore sint accusantium esse voluptate iste. Quam, vel veritatis.",
-    link: "https://github.com/JuanRojoA",
-    date: "12 sep 2021",
-  },
-  {
-    projectType: 3,
-    image: "https://picsum.photos/300/200",
-    altImage: "Image representing the project",
-    title: "Project Title",
-    description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius officia vel distinctio ducimus in amet sequi, modi minus neque, vitae facilis! Dolore sint accusantium esse voluptate iste. Quam, vel veritatis.",
-    link: "https://github.com/JuanRojoA",
-    date: "12 sep 2021",
-  },
-  {
-    projectType: 4,
-    image: "https://picsum.photos/300/200",
-    altImage: "Image representing the project",
-    title: "Project Title",
-    description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius officia vel distinctio ducimus in amet sequi, modi minus neque, vitae facilis! Dolore sint accusantium esse voluptate iste. Quam, vel veritatis.",
-    link: "https://github.com/JuanRojoA",
-    date: "12 sep 2021",
-  },
-];
+let projectContainerElementOne = document.getElementById("section-container-one");
+let projectContainerElementTwo = document.getElementById("section-container-two");
+let projectContainerElementThree = document.getElementById("section-container-three");
+let projectContainerElementFour = document.getElementById("section-container-four");
+let esLangBtnSelector = document.getElementById("lang-es");
+let enLangBtnSelector = document.getElementById("lang-en");
+let enJsonData = [];
+let esJsonData = [];
 
-console.log(jsonData);
-
-if (navigator.language.includes("en")) {
-  console.log("language is english");
-  document.documentElement.setAttribute("lang", navigator.language);
-} else if (navigator.language.includes("es")) {
-  console.log("language is spanish");
-  document.documentElement.setAttribute("lang", navigator.language);
-} else {
-  console.log("language is other");
+async function readJSON() {
+  let response;
   document.documentElement.setAttribute("lang", "en");
+  response = await fetch("./js/enData.json");
+  enJsonData = await response.json();
+  response = await fetch("./js/esData.json");
+  esJsonData = await response.json();
+  if (navigator.language.includes("en") || !navigator.language.includes("es")) {
+    await addProject(enJsonData);
+    enLangBtnSelector.classList.add("active");
+  } else if (navigator.language.includes("es")) {
+    await addProject(esJsonData);
+    esLangBtnSelector.classList.add("active");
+  }
 }
 
 function addProject(arrayData) {
-  for (i = 0; i < arrayData.length; i++) {
+  projectContainerElementOne.innerHTML = ""
+  projectContainerElementTwo.innerHTML = ""
+  projectContainerElementThree.innerHTML = ""
+  projectContainerElementFour.innerHTML = ""
+  for (i = 0; i < arrayData.projects.length; i++) {
     let projectItem = ` 
     <div class="project-container">
-      <img
-        src=${arrayData[i].image}
-        alt="${arrayData[i].altImage}"
-        class="project-container__img"
-      />
-      <h3 class="project-container__title">${arrayData[i].title}</h3>
-      <p class="project-container__description">${arrayData[i].description}</p>
-      <a href="${arrayData[i].link}" target="_blank" class="project-container__link">See Project</a>
-      <span class="project-container__date">${arrayData[i].date}</span>
+      <img src="${arrayData.projects[i].image}" alt="${arrayData.projects[i].altImage}" class="project-container__img"/>
+      <h3 class="project-container__title">${arrayData.projects[i].title}</h3>
+      <p class="project-container__description">${arrayData.projects[i].description}</p>
+      <a href="${arrayData.projects[i].link}" target="_blank" class="project-container__link">See Project</a>
+      <span class="project-container__date">${arrayData.projects[i].date}</span>
     </div>`;
-    if (arrayData[i].projectType === 1) {
+    if (arrayData.projects[i].projectType === 1) {
       projectContainerElementOne.innerHTML += projectItem;
-    } else if (arrayData[i].projectType === 2) {
+    } else if (arrayData.projects[i].projectType === 2) {
       projectContainerElementTwo.innerHTML += projectItem;
-    } else if (arrayData[i].projectType === 3) {
+    } else if (arrayData.projects[i].projectType === 3) {
       projectContainerElementThree.innerHTML += projectItem;
-    } else if (arrayData[i].projectType === 4) {
+    } else if (arrayData.projects[i].projectType === 4) {
       projectContainerElementFour.innerHTML += projectItem;
     }
   }
 }
 
-addProject(jsonData);
+esLangBtnSelector.addEventListener("click", (e) => {
+  document.documentElement.setAttribute("lang", "es");
+  esLangBtnSelector.classList.add("active");
+  if (enLangBtnSelector.classList.contains("active")) {
+    enLangBtnSelector.classList.remove("active");
+  }
+  addProject(esJsonData);
+});
+
+enLangBtnSelector.addEventListener("click", (e) => {
+  document.documentElement.setAttribute("lang", "en");
+  enLangBtnSelector.classList.add("active");
+  if (esLangBtnSelector.classList.contains("active")) {
+    esLangBtnSelector.classList.remove("active");
+  }
+  addProject(enJsonData);
+});
+
+readJSON();

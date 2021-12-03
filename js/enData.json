@@ -1,3 +1,49 @@
 {
-     "title" : "JavaScript "
+  "projects": [
+    {
+      "projectType": 1,
+      "image": "https://picsum.photos/300/200",
+      "altImage": "Image representing the project",
+      "title": "Project Title",
+      "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius officia vel distinctio ducimus in amet sequi, modi minus neque, vitae facilis! Dolore sint accusantium esse voluptate iste. Quam, vel veritatis.",
+      "link": "https://github.com/JuanRojoA",
+      "date": "12 sep 2021"
+    },
+    {
+      "projectType": 1,
+      "image": "https://picsum.photos/300/200",
+      "altImage": "Image representing the project",
+      "title": "Project Title",
+      "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius officia vel distinctio ducimus in amet sequi, modi minus neque, vitae facilis! Dolore sint accusantium esse voluptate iste. Quam, vel veritatis.",
+      "link": "https://github.com/JuanRojoA",
+      "date": "12 sep 2021"
+    },
+    {
+      "projectType": 2,
+      "image": "https://picsum.photos/300/200",
+      "altImage": "Image representing the project",
+      "title": "Project Title",
+      "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius officia vel distinctio ducimus in amet sequi, modi minus neque, vitae facilis! Dolore sint accusantium esse voluptate iste. Quam, vel veritatis.",
+      "link": "https://github.com/JuanRojoA",
+      "date": "12 sep 2021"
+    },
+    {
+      "projectType": 3,
+      "image": "https://picsum.photos/300/200",
+      "altImage": "Image representing the project",
+      "title": "Project Title",
+      "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius officia vel distinctio ducimus in amet sequi, modi minus neque, vitae facilis! Dolore sint accusantium esse voluptate iste. Quam, vel veritatis.",
+      "link": "https://github.com/JuanRojoA",
+      "date": "12 sep 2021"
+    },
+    {
+      "projectType": 4,
+      "image": "https://picsum.photos/300/200",
+      "altImage": "Image representing the project",
+      "title": "Project Title",
+      "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius officia vel distinctio ducimus in amet sequi, modi minus neque, vitae facilis! Dolore sint accusantium esse voluptate iste. Quam, vel veritatis.",
+      "link": "https://github.com/JuanRojoA",
+      "date": "12 sep 2021"
+    }
+  ]
 }
