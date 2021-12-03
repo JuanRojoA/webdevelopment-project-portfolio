@@ -16,22 +16,32 @@ async function readJSON() {
   enJsonData = await response.json();
   response = await fetch("./js/esData.json");
   esJsonData = await response.json();
-  if (navigator.language.includes("en") || !navigator.language.includes("es")) {
-    await renderProjectsPage(enJsonData);
-    enLangBtnSelector.classList.add("active");
-  } else if (navigator.language.includes("es")) {
-    await renderProjectsPage(esJsonData);
-    esLangBtnSelector.classList.add("active");
-  }
+  if (localStorage.getItem("lang")) {
+    if (localStorage.getItem("lang") === "en") {
+      await renderProjectsPage(enJsonData);
+      enLangBtnSelector.classList.add("active");
+    } else if (localStorage.getItem("lang") === "es") {
+      await renderProjectsPage(esJsonData);
+      esLangBtnSelector.classList.add("active");
+    }
+  } else {
+    if (navigator.language.includes("en") || !navigator.language.includes("es")) {
+      await renderProjectsPage(enJsonData);
+      enLangBtnSelector.classList.add("active");
+    } else if (navigator.language.includes("es")) {
+      await renderProjectsPage(esJsonData);
+      esLangBtnSelector.classList.add("active");
+    }
+  } 
 }
 
 function renderProjectsPage(arrayData) {
-  projectContainerElementOne.innerHTML = ""
-  projectContainerElementTwo.innerHTML = ""
-  projectContainerElementThree.innerHTML = ""
-  projectContainerElementFour.innerHTML = ""
-  titleElement.innerText = arrayData.pageTitle
-  mainpageBtnElement.innerText = arrayData.mainButtonText
+  projectContainerElementOne.innerHTML = "";
+  projectContainerElementTwo.innerHTML = "";
+  projectContainerElementThree.innerHTML = "";
+  projectContainerElementFour.innerHTML = "";
+  titleElement.innerText = arrayData.pageTitle;
+  mainpageBtnElement.innerText = arrayData.mainButtonText;
   for (i = 0; i < arrayData.projects.length; i++) {
     let projectItem = ` 
     <div class="project-container">
@@ -60,6 +70,7 @@ esLangBtnSelector.addEventListener("click", (e) => {
     enLangBtnSelector.classList.remove("active");
   }
   renderProjectsPage(esJsonData);
+  localStorage.setItem("lang", "es");
 });
 
 enLangBtnSelector.addEventListener("click", (e) => {
@@ -69,6 +80,7 @@ enLangBtnSelector.addEventListener("click", (e) => {
     esLangBtnSelector.classList.remove("active");
   }
   renderProjectsPage(enJsonData);
+  localStorage.setItem("lang", "en");
 });
 
 readJSON();
